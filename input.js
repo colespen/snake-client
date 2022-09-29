@@ -1,4 +1,9 @@
 // setup interface to handle user input from stdin
+
+const { userInfo } = require("os");
+const { userInput } = require("./constants");
+
+// const userInput = require('./constants');
 let connection;
 
 const setupInput = function(conn) {
@@ -8,33 +13,33 @@ const setupInput = function(conn) {
   stdin.setEncoding("utf8");
   stdin.resume();
 
-
   stdin.on("data", handleUserInput);
  
   return stdin;
 };
 
-const handleUserInput = function(key) {
+const handleUserInput = key => {
 
-    if (key === 'w') {
-      connection.write("Move: up");
-      // console.log('w');
-    }
-    if (key === 'a') {
-      connection.write("Move: left");
-      // console.log('a');
-    }
-    if (key === 's') {
-      connection.write("Move: down");
-      // console.log('s');
-    }
-    if (key === 'd') {
-      connection.write("Move: right");
-      // console.log('d');
-    }
     if (key === '\u0003') {
       process.exit();
-    }
+    };
+    connection.write(userInput[key]);
+    
+    // if (key === 'w') {
+    //   connection.write("Move: up");
+    // }
+    // if (key === 'a') {
+    //   connection.write("Move: left");
+    // }
+    // if (key === 's') {
+    //   connection.write("Move: down");
+    // }
+    // if (key === 'd') {
+    //   connection.write("Move: right");
+    // }
+    // if (key === ' ') {
+    //   connection.write("Say: snakes on a 2D plane");
+    // }
 };
 
 module.exports = setupInput;
